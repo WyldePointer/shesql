@@ -104,6 +104,25 @@ With a fallback to PHP's default logger if something goes really wrong!
 
 ```
 
+## Benchmarks
+
+Logging 100000 INSERTs on SQLite(stored on ramfs) in blocking(default) mode: 42.178443
+Logging 100000 INSERTs on SQLite(stored on ramfs) in non-blocking mode: 34.413708
+
+Logging 200000 INSERTs on SQLite(stored on ramfs) in blocking(default) mode: 96.533679
+Logging 200000 INSERTs on SQLite(stored on ramfs) in non-blocking mode: 89.514524
+
+Note: In order to use the scripts in benchmarks/ directory, you need to have your database placed in a ramfs so the HDD and database writes won't be the bottleneck.
+
+GNU/Linux example:
+```
+# mkdir /mnt/ramdisk
+# mount -t tmpfs -o size=10m tmpfs /mnt/ramdisk
+# chown USERNAME:USERNAME /mnt/ramdisk/test_db.sqlite
+$ cd benchmarks/
+$ php5 file_logging_blocking.php
+```
+
 ### Versus your existing solution: (ask yourself :D)
 How your code will behave if your sqlite file is not existing?
 
@@ -126,20 +145,3 @@ shesql_disconnect_the_logger($db);
 ```
 (Or you'll get `Warning:  fwrite(): 4 is not a valid stream resource` since PHP is not passing values by pointer/reference)
 
-
-### Benchmarks
-
-Logging 100000 INSERTs on SQLite(stored on ramfs) in blocking(default) mode: 42.178443
-Logging 100000 INSERTs on SQLite(stored on ramfs) in non-blocking mode: 34.413708
-
-Logging 200000 INSERTs on SQLite(stored on ramfs) in blocking(default) mode: 96.533679
-Logging 200000 INSERTs on SQLite(stored on ramfs) in non-blocking mode: 89.514524
-
-Note: In order to use the scripts in benchmarks/ directory, you need to have your database placed in a ramfs so the HDD and database writes won't be the bottleneck.
-
-GNU/Linux example:
-```
-# mkdir /mnt/ramdisk
-# mount -t tmpfs -o size=10m tmpfs /mnt/ramdisk
-# chown USERNAME:USERNAME /mnt/ramdisk/test_db.sqlite
-```
