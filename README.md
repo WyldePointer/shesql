@@ -56,7 +56,6 @@ shesql_disconnect($db);
 2017-07-22 12:34:12 _SHESQL_UPTIME_ 0.15848016738892
 ```
 <br/>
-<br/>
 
 With `microtime`:
 ```
@@ -94,7 +93,7 @@ How your code will behave if your sqlite file is not existing?
 
 How about when it exists but you don't have read+execute permission on the directory which has the sqlite file in it?
 
-(Try `SQLite3("/root/test.sqlite")`)
+(Try `<?php SQLite3("/root/test.sqlite") ?>`)
 <br />
 
 Where your logs are stored?
