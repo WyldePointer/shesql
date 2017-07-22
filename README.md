@@ -30,6 +30,7 @@ An elegant SQL connector for PHP.
  - Caching.
  - Input validation.
  - Logging the query size.
+ - Non-blocking logging.
 
 ### Usage
 ```
