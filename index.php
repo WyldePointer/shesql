@@ -34,7 +34,7 @@ $logger_info = array(
 );
 
 /*
- * Must be ALWAYS iniatialized *BEFORE* the $database_info.
+ * Must be ALWAYS initialized *BEFORE* being used in $database_info.
  */
 $logger = shesql_logger_connect($logger_info);
 
