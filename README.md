@@ -1,4 +1,4 @@
-### sheSQL
+### shesql (shes-kiu-el)
 An elegant SQL connector for PHP.
 
 ### Features
