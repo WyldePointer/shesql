@@ -36,7 +36,7 @@ function shesql_connect($info){
         break;
 
       default:
-        return -1; /* SHESQL_ERR_INVALID_DB_TYPE */
+        return -1; /* SHESQL_ERR_INVALID_DATABASE_TYPE */
     }
 
   }
@@ -129,7 +129,7 @@ function __shesql_connect_sqlite($info){
     );
 
   } else {
-    return -2; /* SHESQL_ERR_NO_SQLITE_DB_PATH_SUPPLIED */
+    return -2; /* SHESQL_ERR_NO_SQLITE_DATABASE_PATH_SUPPLIED */
   }
 
 }
