@@ -29,14 +29,14 @@
 require "../shesql.php";
 
 
-$records_to_create = 200000;
+$records_to_create = 100000;
 $delete = 0; /* in order to cleanup the old contents in database */
 
 printf("<pre>\n");
 
 $logger_info = array(
   "type" => "file",
-  "path" => "/tmp/shesql.log",
+  "path" => "/mnt/ramdisk/shesql.log",
   "blocking" => false
 );
 
@@ -81,12 +81,14 @@ printf("[DONE] (%f)\n", microtime(true) - $array_population_started);
 $logging_started = microtime(true);
 $inserted = 0;
 
+printf("> INSERT and logging in non-blocking mode...");
+
 foreach ($values as $key => $value){
   $result = shesql_raw_query_insert($db, "INSERT INTO `my_table` VALUES($key, '$value');");
   $inserted++;
 }
 
-printf("> INSERT and logging in non-blocking mode... [%d/%d] (%f)\n", $inserted, count($values), microtime(true) - $logging_started);
+printf(" [%d/%d] (%f)\n", $inserted, count($values), microtime(true) - $logging_started);
 
 shesql_disconnect($db);
 
