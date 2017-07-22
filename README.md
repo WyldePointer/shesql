@@ -14,7 +14,7 @@ An elegant SQL connector for PHP.
    - "connect": "When did it connect."
    - "disconnect": "When did it disconnect."
    - "uptime": "For how long."
-   - "microtime": "Even more accurate!"
+   - "microtime": Using `microtime(true)` as an addition to `date("Y-m-d H:i:s")`
    - "query": "What did it do and if failed, why?!"
 
 `grep`-friendly!
