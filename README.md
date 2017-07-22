@@ -89,6 +89,19 @@ With `microtime`:
 2017-07-22 12:31:08 _SHESQL_UPTIME_ 0.1924889087677
 ```
 
+And in case of a PHP-specific error:
+```
+2017-07-22 12:37:35 _PHP_: fopen(/root/test_db.sqlite): failed to open stream: Permission denied _at_ /var/www/shesql/public_html/shesql.php _line_ 37
+```
+
+With a fallback to PHP's default logger if something goes really wrong!
+```
+# tail -f /var/log/nginx/error.log
+
+2017/07/22 03:45:53 [error] 968#0: *656 FastCGI sent in stderr: "PHP message: _SHESQL_PHP_: fopen(/root/test.log): failed to open stream: Permission denied _at_ /var/www/shesql/public_html/shesql.php _line_ 214" while reading response header from upstream, client: 127.0.0.1, server: shesql.local, request: "GET /shesql/shesql.php HTTP/1.1", upstream: "fastcgi://unix:/var/www/shesql/fastcgi/php5-fpm.sock:", host: "shesql.local"
+
+```
+
 ### Versus your existing solution: (ask yourself :D)
 How your code will behave if your sqlite file is not existing?
 
