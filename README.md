@@ -8,6 +8,7 @@ An elegant SQL connector for PHP.
  - Advanced logging.
 
 ### Logging
+ - Non-blocking. (disabled by default)
  - Microseconds accuracy.
  - Supports file and remote logging.
  - Custom logging: 
@@ -30,7 +31,6 @@ An elegant SQL connector for PHP.
  - Caching.
  - Input validation.
  - Logging the query size.
- - Non-blocking logging.
 
 ### Usage
 ```
