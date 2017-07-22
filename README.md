@@ -8,7 +8,7 @@ An elegant SQL connector for PHP.
  - Advanced logging.
 
 ### Logging
- - `microtime()`-level logging. (microseconds)
+ - Microseconds accuracy.
  - Supports file and remote logging.
  - Custom logging: 
    - "connect": "When did it connect."
