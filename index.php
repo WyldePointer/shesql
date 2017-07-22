@@ -30,8 +30,7 @@ require "shesql.php";
 
 $logger_info = array(
   "type" => "file",
-  "path" => "/tmp/shesql.log",
-  "level" => 0,
+  "path" => "/tmp/shesql.log"
 );
 
 /*
