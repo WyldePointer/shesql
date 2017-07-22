@@ -146,5 +146,5 @@ shesql_logger_disconnect($logger);
 shesql_disconnect_the_logger($db);
 
 ```
-(Or you'll get `Warning:  fwrite(): 4 is not a valid stream resource` since PHP is not passing values by pointer/reference)
+(Or you'll get `Warning:  fwrite(): 4 is not a valid stream resource` since PHP is not passing arguments by pointer/reference)
 
