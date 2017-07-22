@@ -23,6 +23,7 @@ An elegant SQL connector for PHP.
  - SQLite (INSERT)
 
 ### TODO
+ - OOP interface.
  - MySQL support.
  - CRUD for SQLite.
  - Remote logging. (Redis, etc.)
