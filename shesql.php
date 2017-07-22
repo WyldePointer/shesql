@@ -414,6 +414,12 @@ function __shesql_logger_connect_file($info){
       return -2; /* SHESQL_LOGGER_ERR_CAN_NOT_OPEN_LOG_FILE */
     }
 
+    if (isset($info["blocking"])){
+      if ($info["blocking"] == false){
+        stream_set_blocking($handle, false);
+      }
+    }
+
     return array(
       "_shesql_logger_var_" => true,
       "_type" => "file",
@@ -458,7 +464,9 @@ function shesql_logger_log(&$shesql_logger, $message){
   $shesql_logger["_last_log_started_at"] = microtime(true);
 
   if ($shesql_logger["_type"] == "file"){
+
     $result = fwrite($shesql_logger["_file_handler"], $message."\n");
+
   }
 
   if ($result){
