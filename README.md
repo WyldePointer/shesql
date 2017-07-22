@@ -29,6 +29,7 @@ An elegant SQL connector for PHP.
  - Remote logging. (Redis, etc.)
  - Caching.
  - Input validation.
+ - Logging the query size.
 
 ### Usage
 ```
