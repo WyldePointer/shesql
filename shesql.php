@@ -469,7 +469,6 @@ function shesql_logger_log(&$shesql_logger, $message){
       /*
        * In case of logging into file, we also need to make sure
        * that the we've logged the whole message.
-       *
        */
       if ($result == strlen($message)){
         $shesql_logger["_last_log_successful"] = true;
