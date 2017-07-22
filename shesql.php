@@ -399,6 +399,7 @@ function __shesql_logger_connect_file($info){
 
   $handle = NULL;
   $error = NULL;
+  $blocking = true;
 
   if (isset($info["path"])){
 
@@ -417,6 +418,7 @@ function __shesql_logger_connect_file($info){
     if (isset($info["blocking"])){
       if ($info["blocking"] == false){
         stream_set_blocking($handle, false);
+        $blocking = false;
       }
     }
 
@@ -424,6 +426,7 @@ function __shesql_logger_connect_file($info){
       "_shesql_logger_var_" => true,
       "_type" => "file",
       "_file_handler" => $handle,
+      "_blocking" => $blocking,
       "_status" => 1,
       "_connected_at" => microtime(true)
     );
@@ -515,6 +518,96 @@ function shesql_get_last_error_message($shesql){
 
   if ( isset($shesql["_last_error_message"])){
     return $shesql["_last_error_message"];
+  }
+
+  return 0;
+}
+
+function shesql_logger_disconnect(&$shesql_logger){
+
+  if ( !isset($shesql_logger["_shesql_logger_var_"]) ){
+    return -1; /* SHESQL_LOGGER_ERR_INVALID_LOGGER_VARIABLE */
+  }
+
+
+  if ( isset($shesql_logger["_file_handler"]) ){
+
+    if ( isset($shesql_logger["_status"]) ){
+
+      if ($shesql_logger["_status"] == 1){
+        $shesql_logger["_status"] = 2; /* SHESQL_LOGGER_DISCONNECTED */
+        return fclose($shesql_logger["_file_handler"]);
+      }
+
+    }
+
+  }
+
+  return 0;
+}
+
+function shesql_disconnect_the_logger(&$shesql){
+
+  if (!isset($shesql["_shesql_var"])){
+    return -1; /* SHESQL_ERR_INVALID_SHESQL_VARIABLE */
+  }
+
+  if (!isset($shesql["logger"])){
+    return -2; /* SHESQL_ERR_NOT_A_VALID_LOGGER */
+  }
+
+  if (!isset($shesql["logger"]["_shesql_logger_var_"])){
+    return -2; /* SHESQL_ERR_NOT_A_VALID_LOGGER */
+  }
+
+  unset($shesql["logger"]);
+
+
+  return 0;
+}
+
+function shesql_logger_set_blocking_mode_file(&$shesql_logger, $mode){
+
+  $result = NULL;
+
+  if ( !isset($shesql_logger["_shesql_logger_var_"]) ){
+    return -1; /* SHESQL_LOGGER_ERR_INVALID_LOGGER_VARIABLE */
+  }
+
+  if ( isset($shesql_logger["_file_handler"]) ){
+
+    if ( isset($shesql_logger["_status"]) && isset($shesql_logger["_blocking"]) ){
+
+      if ($shesql_logger["_status"] == 1){
+        if ($mode == 0){
+
+          if ($shesql_logger["_blocking"] == true){
+
+            $result = stream_set_blocking($shesql_logger["_file_handler"], false);
+
+            shesql_logger_log($shesql_logger, date("Y-m-d H:i:s") . " _SHESQL_LOGGER_FILE_IS_NON_BLOCKING_NOW_");
+
+          }
+
+          $shesql_logger["_blocking"] = false;
+
+        } else {
+          if ($shesql_logger["_blocking"] == false){
+
+            $result = stream_set_blocking($shesql_logger["_file_handler"], true);
+
+            shesql_logger_log($shesql_logger, date("Y-m-d H:i:s") . " _SHESQL_LOGGER_FILE_IS_BLOCKING_NOW_");
+
+            $shesql_logger["_blocking"] = true;
+
+          }
+        }
+
+      }
+
+    }
+
+    return $result;
   }
 
   return 0;

@@ -115,3 +115,31 @@ How about when it exists but you don't have read+execute permission on the direc
 Where your logs are stored?
 
 How about the PHP-specific errors such as warnings?
+
+
+### Pitfalls
+While using the procedural method for closing a logger instance, make sure you update your database instance as well:
+```
+shesql_logger_disconnect($logger);
+shesql_disconnect_the_logger($db);
+
+```
+(Or you'll get `Warning:  fwrite(): 4 is not a valid stream resource` since PHP is not passing values by pointer/reference)
+
+
+### Benchmarks
+
+Logging 100000 INSERTs on SQLite(stored on ramfs) in blocking(default) mode: 42.178443
+Logging 100000 INSERTs on SQLite(stored on ramfs) in non-blocking mode: 34.413708
+
+Logging 200000 INSERTs on SQLite(stored on ramfs) in blocking(default) mode: 96.533679
+Logging 200000 INSERTs on SQLite(stored on ramfs) in non-blocking mode: 89.514524
+
+Note: In order to use the scripts in benchmarks/ directory, you need to have your database placed in a ramfs so the HDD and database writes won't be the bottleneck.
+
+GNU/Linux example:
+```
+# mkdir /mnt/ramdisk
+# mount -t tmpfs -o size=10m tmpfs /mnt/ramdisk
+# chown USERNAME:USERNAME /mnt/ramdisk/test_db.sqlite
+```
