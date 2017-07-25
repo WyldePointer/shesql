@@ -1,5 +1,13 @@
 ### shesql (shes-kiu-el)
-An elegant SQL connector for PHP.
+An elegant SQL connector for PHP that eliminate the need for:
+ - Writing SQL queries.
+ - *ANY* input validation/sanitization for database interactions.
+
+### Security feature
+ - *NOT* sanitizing / "cleaning" / "escaping" or any other hacks! (or prepending '\' to it the way that `mysql_real_escape_string()` does!)
+ - *NO* SQL is accepted from user whatsoever! (see the examples, it has its own "Query Array")
+ - *NOT* querying anything on the database server unless it's generated safely.
+ - *NOT* using any database-specific function(s). (e,g. "works on all supported databases the same way.")
 
 ### Features
  - Designed for performance, security *AND* simplicity in mind.
@@ -21,24 +29,40 @@ An elegant SQL connector for PHP.
 `grep`-friendly!
 
 ### Supported databases
- - SQLite (INSERT)
+ - SQLite (SELECT)
 
 ### TODO
  - OOP interface.
  - MySQL support.
+ - Improving SQL-generator functions. (INSERT, UPDATE, DELETE for now.)
  - CRUD for SQLite.
  - Remote logging. (Redis, etc.)
  - Caching.
- - Input validation.
  - Logging the query size.
+ - An option for enable/disabling the logging of malicious queries. (it *DOES* log by default)
 
 ### Usage
 ```
 $db = shesql_connect($database_info);
 
-$result = shesql_raw_query_insert($db, "INSERT INTO `my_table` VALUES(1, 'ABC');");
+$select_one = array(
+  'columns' => array("key", "value"),
+  'table' => "my_table"
+);
+
+$selected_one = shesql_query_select($db, $select_one);
 
 shesql_disconnect($db);
+```
+
+Result:
+```
+array(2) {
+  ["key"]=>
+  int(1)
+  ["value"]=>
+  string(3) "abc"
+}
 ```
 (A working example is included in `index.php`)
 
@@ -105,6 +129,8 @@ With a fallback to PHP's default logger if something goes really wrong!
 ```
 
 ## Benchmarks
+
+NOTE: Benchmarks scripts are broken for now. Don't try.
 
 Logging 100000 INSERT on SQLite in blocking(default) mode: 42.178443
 

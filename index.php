@@ -48,10 +48,24 @@ $database_info = array(
 
 $db = shesql_connect($database_info);
 
-$result = shesql_raw_query_insert($db, "INSERT INTO `my_table` VALUES(1, 'ABC');");
+$select_one = array(
+  'columns' => array("key", "value"),
+  'table' => "my_table"
+);
+
+$select_two = array(
+  'columns' => array('*'),
+  'table' => "my_table"
+);
+
+$selected_one = shesql_query_select($db, $select_one);
+$selected_two = shesql_query_select($db, $select_one);
 
 shesql_disconnect($db);
 
+
 printf("<pre>\n");
-var_dump($db);
+var_dump($selected_one);
+var_dump($selected_two);
 printf("</pre>\n");
+
