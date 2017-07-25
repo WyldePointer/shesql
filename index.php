@@ -58,8 +58,21 @@ $select_two = array(
   'table' => "my_table"
 );
 
+$conditions[] = array(
+  "column" => "key",
+  "condition" => "eq",
+  "value" => 1
+);
+
+$conditions[] = array(
+  "column" => "value",
+  "condition" => "eq",
+  "value" => "abc"
+);
+
+
 $selected_one = shesql_query_select($db, $select_one);
-$selected_two = shesql_query_select($db, $select_two);
+$selected_two = shesql_query_select($db, $select_two, $conditions);
 
 shesql_disconnect($db);
 

@@ -12,7 +12,19 @@ $select_one = array(
   'table' => "my_table"
 );
 
-$selected_one = shesql_query_select($db, $select_one);
+$conditions[] = array(
+  "column" => "key",
+  "condition" => "=",
+  "value" => 1
+);
+
+$conditions[] = array(
+  "column" => "value",
+  "condition" => "=",
+  "value" => "abc"
+);
+
+$selected_one = shesql_query_select($db, $select_one, $conditions);
 
 shesql_disconnect($db);
 ```

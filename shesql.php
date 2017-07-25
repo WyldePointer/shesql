@@ -669,9 +669,10 @@ function shesql_string_is_safe_for_database($string){
 }
 
 
-function shesql_query_select(array &$shesql, array $query_array){
+function shesql_query_select(array &$shesql, array $query_array, array $conditions_array=NULL){
 
   $sql_query = NULL;
+  $condition_query = NULL;
   $log_microtime = false;
   $log_sqli = false;  
   $log_array = array();
@@ -708,6 +709,24 @@ function shesql_query_select(array &$shesql, array $query_array){
     $invalid_strings_found[] = $query_array["table"];
   }
 
+  if ($conditions_array){
+
+    $condition_query = __shesql_conditions_to_sql($conditions_array);
+
+    foreach ($conditions_array as $condition){
+
+      if (!shesql_string_is_safe_for_database($condition["column"])){
+        $invalid_strings_found[] = $condition["column"];
+      }
+
+      if (!shesql_string_is_safe_for_database($condition["value"])){
+        $invalid_strings_found[] = $condition["value"];
+      }
+
+    }
+
+  }
+
 
   if(count($invalid_strings_found)){
 
@@ -725,7 +744,11 @@ function shesql_query_select(array &$shesql, array $query_array){
     return -3; /* HACKING_ATTEMPT */
   }
 
-   return __shesql_raw_query($shesql, $sql_query, 0/*SELECT*/);
+  if ($condition_query){
+    $sql_query .= $condition_query;
+  }
+
+  return __shesql_raw_query($shesql, $sql_query, 0/*SELECT*/);
 }
 
 
@@ -865,13 +888,13 @@ function __shesql_conditions_to_sql(array $conditions){
 
   $total_conditions = count($conditions);
 
-  $query = " WHERE ";
+  $query = " WHERE";
 
   foreach ($conditions as $condition){
 
     $current_condition++;
 
-    $query .= "`{$condition["column"]}`";
+    $query .= " `{$condition["column"]}`";
 
     switch ($condition["condition"]){
 
@@ -916,7 +939,9 @@ function __shesql_conditions_to_sql(array $conditions){
     }
 
     if (intval($condition["value"])){
+
       $query .= $condition["value"];
+
     } else {
 
       $query .= '"';
@@ -933,11 +958,11 @@ function __shesql_conditions_to_sql(array $conditions){
 
       $query .= '"';
 
-      if ($current_condition < $total_conditions){
-        $query .= " AND ";
-      }
-
     }
+
+      if ($current_condition < $total_conditions){
+        $query .= " AND";
+      }
 
   }
 
