@@ -3,6 +3,32 @@ An elegant SQL connector for PHP that eliminates the needs for:
  - Writing SQL queries.
  - *ANY* input validation/sanitization for database interactions.
 
+### Usage
+```
+$db = shesql_connect($database_info);
+
+$select_one = array(
+  'columns' => array("key", "value"),
+  'table' => "my_table"
+);
+
+$selected_one = shesql_query_select($db, $select_one);
+
+shesql_disconnect($db);
+```
+
+Result:
+```
+array(2) {
+  ["key"]=>
+  int(1)
+  ["value"]=>
+  string(3) "abc"
+}
+```
+(A working example is included in `index.php`)
+
+
 ### Security features
  - *NOT* sanitizing / "cleaning" / "escaping" or any other hacks! (or prepending "backslash" to it the way that `mysql_real_escape_string()` does!)
  - *NO* SQL is accepted from user whatsoever! (see the examples, it has its own "Query Array")
@@ -40,31 +66,6 @@ An elegant SQL connector for PHP that eliminates the needs for:
  - Caching.
  - Logging the query size.
  - An option for enable/disabling the logging of malicious queries. (it *DOES* log by default)
-
-### Usage
-```
-$db = shesql_connect($database_info);
-
-$select_one = array(
-  'columns' => array("key", "value"),
-  'table' => "my_table"
-);
-
-$selected_one = shesql_query_select($db, $select_one);
-
-shesql_disconnect($db);
-```
-
-Result:
-```
-array(2) {
-  ["key"]=>
-  int(1)
-  ["value"]=>
-  string(3) "abc"
-}
-```
-(A working example is included in `index.php`)
 
 ### Example of a log file
 ```
