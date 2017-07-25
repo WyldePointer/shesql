@@ -738,7 +738,7 @@ function shesql_query_select(array &$shesql, array $query_array, array $conditio
       /* XXX: IMPLEMENT LOG TO PHP */
 
     } else {
-      __shesql_logger_log_security_alert($log_array, 0/*SQL_INJECTION*/, $shesql["logger"]);
+      __shesql_logger_log_security_alert($log_array, 0/* SQL_INJECTION */, $shesql["logger"]);
     }
 
     return -3; /* HACKING_ATTEMPT */
@@ -835,7 +835,7 @@ function __shesql_logger_log_security_alert(array $log_array, $type=0, &$shesql_
 
   if ($shesql_logger){
 
-    $log_message = date("Y-m-d H:i:s") . " _SHESQL_SECURITY_ALERT_SQL_INJECTION";
+    $log_message = date("Y-m-d H:i:s") . " _SHESQL_SECURITY_ALERT_SQL_INJECTION_";
     $log_message .= " [_ATTACKER_IP_ " . __shesql_get_client_ip() . ']';
     $log_message .= " [{$log_array["query"]}] ";
 
