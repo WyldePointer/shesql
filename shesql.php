@@ -185,7 +185,7 @@ function shesql_disconnect(array &$shesql){
 
             if (isset($shesql["logger"]["what_to_log"]["disconnect"])){
 
-              if ($shesql["logger"]["what_to_log"]["disconnect"] == true)
+              if ($shesql["logger"]["what_to_log"]["disconnect"] == true){
 
                 $log_message = date("Y-m-d H:i:s") . " _SHESQL_DISCONNECT_";
 
@@ -209,7 +209,9 @@ function shesql_disconnect(array &$shesql){
 
               }
 
-            } /* Nothing to log */
+            }
+
+          } /* Nothing to log */
 
         }
 
@@ -640,7 +642,7 @@ function shesql_logger_set_blocking_mode_file(array &$shesql_logger, $mode){
 }
 
 
-function shesql_string_is_safe_for_database($string){
+function shesql_string_is_safe_for_database($string /* TODO: $allowed_chars=NULL */){
 
   /*
    *  According to: http://php.net/manual/en/function.mysql-real-escape-string.php
