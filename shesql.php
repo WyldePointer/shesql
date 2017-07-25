@@ -640,6 +640,10 @@ function shesql_logger_set_blocking_mode_file(array &$shesql_logger, $mode){
 
 function shesql_string_is_safe_for_database($string){
 
+  /*
+   *  According to: http://php.net/manual/en/function.mysql-real-escape-string.php
+   */
+
   $invalid_characters = array(
     "\x00",
     "\n",
