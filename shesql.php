@@ -669,7 +669,7 @@ function shesql_string_is_safe_for_database($string){
 }
 
 
-function shesql_query_select(array $shesql, array $query_array){
+function shesql_query_select(array &$shesql, array $query_array){
 
   $sql_query = NULL;
   $log_microtime = false;
