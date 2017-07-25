@@ -14,17 +14,18 @@ $select_one = array(
 
 $conditions[] = array(
   "column" => "key",
-  "condition" => "=",
+  "condition" => '=',
   "value" => 1
 );
 
 $conditions[] = array(
   "column" => "value",
-  "condition" => "=",
+  "condition" => '=',
   "value" => "abc"
 );
 
 $selected_one = shesql_query_select($db, $select_one, $conditions);
+/* SELECT * FROM `my_table` WHERE `key`=1 AND `value`="abc" */
 
 shesql_disconnect($db);
 ```
