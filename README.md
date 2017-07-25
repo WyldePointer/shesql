@@ -2,7 +2,6 @@
 No need to:
  - Write any SQL queries manually.
  - Do *ANY* input validation/sanitization.
-Anymore!
 
 ### Usage
 ```
