@@ -34,6 +34,13 @@ array(2) {
  - *NO* SQL is accepted from user whatsoever! (see the examples, it has its own "Query Array")
  - *NOT* querying anything on the database server unless it's generated safely.
  - *NOT* using any database-specific function(s). (e,g. "works on all supported databases the same way.")
+ - Logging the malicious query:
+```
+2017-07-25 16:56:39 _SHESQL_CONNECT_ (1500985599.749)
+2017-07-25 16:56:39 _SHESQL_SECURITY_ALERT_SQL_INJECTION [_ATTACKER_IP_ 127.0.0.1] [SELECT `okay_column`,  `another_column`,  `col'` FROM my_table] [col'] (1500985599.7494)
+2017-07-25 16:56:39 _SHESQL_DISCONNECT_ (1500985599.7495)
+2017-07-25 16:56:39 _SHESQL_UPTIME_ 0.00027203559875488
+```
 
 ### Features
  - Designed for security, performance *AND* simplicity in mind.
