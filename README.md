@@ -1,7 +1,8 @@
 ### shesql (shes-kiu-el)
-An elegant SQL connector for PHP that eliminates the needs for:
- - Writing SQL queries.
- - *ANY* input validation/sanitization for database interactions.
+No need to:
+ - Write any SQL queries manually.
+ - Do *ANY* input validation/sanitization.
+Anymore!
 
 ### Usage
 ```
