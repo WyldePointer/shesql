@@ -45,6 +45,7 @@ function shesql_connect(array $info){
   return 0;
 }
 
+
 function __shesql_connect_sqlite(array $info){
 
   $handle = NULL;
@@ -134,6 +135,7 @@ function __shesql_connect_sqlite(array $info){
 
   return 0;
 }
+
 
 function shesql_uptime(array $shesql){
 
@@ -226,6 +228,7 @@ function shesql_disconnect(array &$shesql){
 function __shesql_logger_is_microtime_enabled(array &$shesql){
 /* TODO: Implement it! */
 }
+
 
 function __shesql_raw_query(array &$shesql, $query, $query_type=0){
   /*
@@ -460,6 +463,7 @@ function __shesql_logger_connect_file(array $info){
   return 0;
 }
 
+
 function shesql_logger_log(array &$shesql_logger, $message){
 
   $result = false;
@@ -553,7 +557,6 @@ function shesql_logger_disconnect(array &$shesql_logger){
     return -1; /* SHESQL_LOGGER_ERR_INVALID_LOGGER_VARIABLE */
   }
 
-
   if ( isset($shesql_logger["_file_handler"]) ){
 
     if ( isset($shesql_logger["_status"]) ){
@@ -585,7 +588,6 @@ function shesql_disconnect_the_logger(&$shesql){
   }
 
   unset($shesql["logger"]);
-
 
   return 0;
 }
@@ -667,7 +669,6 @@ function shesql_string_is_safe_for_database($string){
 }
 
 
-//function shesql_query_select($shesql, array $to_select, array $conditions){
 function shesql_query_select(array $shesql, array $query_array){
 
   $sql_query = NULL;
@@ -727,6 +728,7 @@ function shesql_query_select(array $shesql, array $query_array){
    return __shesql_raw_query($shesql, $sql_query, 0/*SELECT*/);
 }
 
+
 function __shesql_generate_sql_from_select_query_array(array $query_array){
 
   $query = NULL;
@@ -785,7 +787,7 @@ function __shesql_generate_sql_from_select_query_array(array $query_array){
 function __shesql_logger_log_security_alert(array $log_array, $type=0, &$shesql_logger=NULL){
 
   /* XXX
-   * ESCAPE THE STRING BEFORE STORING IT ANYWHERE!
+   * ESCAPING THE STRING BEFORE STORING IT ANYWHERE!
    */
   $current_invalid_string = 0;
   $log_microtime = false;
@@ -842,7 +844,6 @@ function __shesql_logger_log_security_alert(array $log_array, $type=0, &$shesql_
     }
 
   }
-
 
   return 0;
 }
