@@ -3,14 +3,14 @@ An elegant SQL connector for PHP that eliminates the needs for:
  - Writing SQL queries.
  - *ANY* input validation/sanitization for database interactions.
 
-### Security feature
+### Security features
  - *NOT* sanitizing / "cleaning" / "escaping" or any other hacks! (or prepending "backslash" to it the way that `mysql_real_escape_string()` does!)
  - *NO* SQL is accepted from user whatsoever! (see the examples, it has its own "Query Array")
  - *NOT* querying anything on the database server unless it's generated safely.
  - *NOT* using any database-specific function(s). (e,g. "works on all supported databases the same way.")
 
 ### Features
- - Designed for performance, security *AND* simplicity in mind.
+ - Designed for security, performance *AND* simplicity in mind.
  - No surprises! Totally predictable.
  - Multi-policy.
  - Advanced logging.
