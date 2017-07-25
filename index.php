@@ -59,7 +59,7 @@ $select_two = array(
 );
 
 $selected_one = shesql_query_select($db, $select_one);
-$selected_two = shesql_query_select($db, $select_one);
+$selected_two = shesql_query_select($db, $select_two);
 
 shesql_disconnect($db);
 
