@@ -498,7 +498,7 @@ function shesql_logger_log(array &$shesql_logger, $message){
 
   if ($shesql_logger["_type"] == "file"){
 
-    $result = fwrite($shesql_logger["_file_handler"], $message."\n");
+    @$result = fwrite($shesql_logger["_file_handler"], $message."\n");
 
   }
 
@@ -530,8 +530,9 @@ function shesql_logger_log(array &$shesql_logger, $message){
 
   } else {
 
-    /* We log the error to PHP's default logger if we can't write in the specified log file. */
-    error_log( date("Y-m-d H:i:s") . " _SHESQL_PHP_: {$error["message"]} _at_ {$error["file"]} _line_ {$error["line"]}");
+    if ($error = error_get_last()){
+      error_log( date("Y-m-d H:i:s") . " _SHESQL_PHP_: {$error["message"]} _at_ {$error["file"]} _line_ {$error["line"]}");
+    }
 
     return -4; /* SHESQL_LOGGER_ERR_PHP_FWRITE */
   }
