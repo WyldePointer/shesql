@@ -650,6 +650,8 @@ function shesql_string_is_safe_for_database($string /* TODO: $allowed_chars=NULL
    */
 
   $invalid_characters = array(
+    "--",
+    "/*",
     "\x00",
     "\n",
     "\r",
